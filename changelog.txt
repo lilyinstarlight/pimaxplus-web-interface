@@ -2,8 +2,9 @@ v 0.1.5 (20130726)
 - Added Frodo compatibility
 - Changed button from Hibernate to Suspend
 - Show artists on the songs
-- Bug fix: Fixed the control box toggling when hitting Play Movie
+- Bug fix: Fixed the control box toggling when hitting Play Movie / TV Show
 - Bug fix: Fixed getting a javascript error when the media ends
+- Bug fix: Fixed unused and undeclared javascript variables
 
 v 0.1.4 (20120605)
 - Added the possibility for browsing the artists by album
