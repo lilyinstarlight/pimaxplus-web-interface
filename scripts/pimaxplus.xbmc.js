@@ -289,8 +289,6 @@ var pwiMovies = {
 			url: pwiCore.JSON_RPC + '?GetMovies',
 			data: '{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovieDetails", "params": { "movieid": ' + id + ', "properties": [ "genre", "director", "cast", "tagline", "plot", "title", "lastplayed", "runtime", "year", "playcount", "rating", "thumbnail" ]}, "id": 1}',
 			success: jQuery.proxy(function(data) {
-				//startsWith = data.result.moviedetails.title.indexOf("The ") == 0 ? data.result.moviedetails.title.substr(4, 1) : data.result.moviedetails.title.substr(0, 1);
-				
 				$('#movie-details').html('');
 				$('#movie-details').append('<li data-role="list-divider" id="movie-plot">Plot</li>');
 				$('#movie-details').append('<li data-role="list-divider" id="movie-genres">Genres</li>');
@@ -441,7 +439,7 @@ var pwiTvShows = {
 				
 				$.each($(data.result.seasons), jQuery.proxy(function(i, item) {
 					$("#tvshowseasons-title").text(item.showtitle);
-					startsWith = item.showtitle.indexOf("The ") == 0 ? item.showtitle.substr(4, 1) : item.showtitle.substr(0, 1);
+					//startsWith = item.showtitle.indexOf("The ") == 0 ? item.showtitle.substr(4, 1) : item.showtitle.substr(0, 1);
 					
 					$('#tvshowseasonslist')
 						.append('<li><a href="#tvshows-episodes" data-tvshow-season="'+ item.season + '">' + item.label + '</li>')
