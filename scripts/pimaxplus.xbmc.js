@@ -64,6 +64,9 @@ var pwiCore = {
 			url: pwiCore.JSON_RPC + '?GetCurrentlyPlaying',
 			data: '{ "jsonrpc": "2.0", "method": "Player.GetItem", "params": { "playerid": ' + pwiCore.playerid + ', "properties": [ "title", "showtitle", "artist", "thumbnail" ] }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
+				if(!(data && data.result))
+					return;
+
 				if(!$('#home-list li[data-current-media="info"]').is(':visible')) {
 					$('#home-list li[data-current-media="info"]').show();
 					$('#home-list li[data-current-media="divider"]').show();
