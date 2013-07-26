@@ -314,7 +314,7 @@ var pwiMovies = {
 
 				$("#movie-crew").after(pwiUtils.split(data.result.moviedetails.director));
 				$("#movie-info").after('<li>Released in ' + data.result.moviedetails.year + '</li>');
-				$("#movie-info").after('<li>Duration: ' + data.result.moviedetails.runtime + ' minutes</li>');
+				$("#movie-info").after('<li>Duration: ' + Math.round(data.result.moviedetails.runtime / 60) + ' minutes</li>');
 				$("#movie-actions").after('<li><a data-role="button" href="javascript:pwiMovies.playMovie();">Play movie</a></li>');
 
 				$('#movie-details').listview('refresh');
@@ -518,7 +518,7 @@ var pwiTvShows = {
 
 				$("#episode-crew").after(pwiUtils.split(data.result.episodedetails.director));
 				$("#episode-info").after('<li>First aired on ' + data.result.episodedetails.firstaired + '</li>');
-				$("#episode-info").after('<li>Duration: ' + data.result.episodedetails.runtime + ' minutes</li>');
+				$("#episode-info").after('<li>Duration: ' + Math.round(data.result.episodedetails.runtime / 60) + ' minutes</li>');
 				$("#episode-actions").after('<li><a data-role="button" onclick="pwiTvShows.playEpisode(' + episode + ');">Play episode</a></li>');
 
 				$('#episode-details').listview('refresh');
