@@ -1,3 +1,9 @@
+v 0.1.5 (20130726)
+- Added Frodo compatibility
+- Changed button from Hibernate to Suspend
+- Show artists on the songs
+- Bug fix: Fix the control box toggling when hitting Play Movie
+
 v 0.1.4 (20120605)
 - Added the possibility for browsing the artists by album
 - Bug fix: firing multiple actions on remote is fixed
