@@ -303,7 +303,7 @@ var pwiMovies = {
 				$("#movie-plot").after('<li>' + data.result.moviedetails.plot + '</li>');
 				$("#movie-genres").after(pwiUtils.split(data.result.moviedetails.genre));
 				
-				for(i = 0; i < data.result.moviedetails.cast.length; i++) {
+				for(i = data.result.moviedetails.cast.length - 1; i >= 0 ; i--) {
 					img = data.result.moviedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.moviedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 					
 				
@@ -510,7 +510,7 @@ var pwiTvShows = {
 				$("#episode-title").text(data.result.episodedetails.title);			
 				$("#episode-plot").after('<li>' + data.result.episodedetails.plot + '</li>');
 				
-				for(i = 0; i < data.result.episodedetails.cast.length; i++) {
+				for(i = data.result.episodedetails.cast.length  - 1; i >= 0; i--) {
 					img = data.result.episodedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.episodedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 					
 					$("#episode-cast").after('<li><img src="' + img + '" alt="Actor" />' + data.result.episodedetails.cast[i].name + '<br /><span class="smallfont">' + data.result.episodedetails.cast[i].role + '</span></li>');
