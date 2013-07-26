@@ -697,11 +697,10 @@ var pwiMusic = {
 
 var pwiUtils = {
 	split: function(text) {
-		var pieces = text.split(" / ");
 		var retval = "";
 		
-		for(i = 0; i < pieces.length; i++) {
-			retval += "<li>" + pieces[i] + "</li>";
+		for(i = 0; i < text.length; i++) {
+			retval += "<li>" + text[i] + "</li>";
 		}
 		
 		return retval;
