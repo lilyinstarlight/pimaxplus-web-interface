@@ -72,7 +72,7 @@ var pwiCore = {
 				$('[data-current-media="title"]').text(data.result.item.title);
 				$('[data-current-media="artist"]').text(data.result.item.artist);
 				$('[data-current-media="player-time"]').text(pwiCore.playertime);
-				$('[data-current-media="thumbnail"]').attr('src', '/vfs/' + data.result.item.thumbnail);
+				$('[data-current-media="thumbnail"]').attr('src', '/image/' + encodeURI(data.result.item.thumbnail));
 				
 				$('[data-currentlyplaying="info"]').each(function () {
 					
@@ -260,11 +260,11 @@ var pwiMovies = {
 					
 					if(s == '#' && !isNaN(startsWith)) {
 						$('#movielist')
-							.append('<li><a href="#movies-details" data-movie-id="' + item.movieid + '"><img src="/vfs/' + item.thumbnail + '" alt="Thumnail" />' + item.title + '<br />' + stars + '<br /><span class="smallfont">' + item.tagline + '</span></a></li>')
+							.append('<li><a href="#movies-details" data-movie-id="' + item.movieid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thumnail" />' + item.title + '<br />' + stars + '<br /><span class="smallfont">' + item.tagline + '</span></a></li>')
 							.trigger('create');
 					} else if(startsWith.toUpperCase() == s) {
 						$('#movielist')
-							.append('<li><a href="#movies-details" data-movie-id="' + item.movieid + '"><img src="/vfs/' + item.thumbnail + '" alt="Thumnail" />' + item.title + '<br />' + stars + '<br /><span class="smallfont">' + item.tagline + '</span></a></li>')
+							.append('<li><a href="#movies-details" data-movie-id="' + item.movieid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thumnail" />' + item.title + '<br />' + stars + '<br /><span class="smallfont">' + item.tagline + '</span></a></li>')
 							.trigger('create');
 					}
 				}));
@@ -304,7 +304,7 @@ var pwiMovies = {
 				$("#movie-genres").after(pwiUtils.split(data.result.moviedetails.genre));
 				
 				for(i = 0; i < data.result.moviedetails.cast.length; i++) {
-					img = data.result.moviedetails.cast[i].thumbnail ? '/vfs/' + data.result.moviedetails.cast[i].thumbnail : 'images/unknown-actor.gif';
+					img = data.result.moviedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.moviedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 					
 				
 					$("#movie-cast").after('<li><img src="' + img + '" alt="Actor" />' + data.result.moviedetails.cast[i].name + '<br /><span class="smallfont">' + data.result.moviedetails.cast[i].role + '</span></li>');
@@ -408,11 +408,11 @@ var pwiTvShows = {
 					
 					if(s == '#' && (65 > startsWith.charCodeAt(0) || startsWith.charCodeAt(0) > 91)) {
 						$('#tvshowlist')
-							.append('<li><a href="#tvshows-seasons" data-tvshow-id="' + item.tvshowid + '"><img src="/vfs/' + item.thumbnail + '" alt="Thumnail" />' + item.title + '<br />' + stars + '</li>')
+							.append('<li><a href="#tvshows-seasons" data-tvshow-id="' + item.tvshowid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thumnail" />' + item.title + '<br />' + stars + '</li>')
 							.trigger('create');
 					} else if(startsWith.toUpperCase() == s) {
 						$('#tvshowlist')
-							.append('<li><a href="#tvshows-seasons" data-tvshow-id="' + item.tvshowid + '"><img src="/vfs/' + item.thumbnail +  '" alt="Thumnail" />' + item.title + '<br />' + stars + '</li>')
+							.append('<li><a href="#tvshows-seasons" data-tvshow-id="' + item.tvshowid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thumnail" />' + item.title + '<br />' + stars + '</li>')
 							.trigger('create');
 					}
 				}));
@@ -476,7 +476,7 @@ var pwiTvShows = {
 					seen = item.playcount > 0 ? 'Watched' : '';
 				
 					$('#tvshowepisodeslist')
-						.append('<li><a href="#tvshows-episodes-details" data-tvshow-episode="' + item.episodeid + '"><img src="/vfs/' + item.thumbnail +  '" alt="Thumnail" />' + item.episode + ' - ' + item.title + '<br /><span class="smallerfont">' + seen + '</span></li>')
+						.append('<li><a href="#tvshows-episodes-details" data-tvshow-episode="' + item.episodeid + '"><img src="/image/' + encodeURI(item.thumbnail) +  '" alt="Thumnail" />' + item.episode + ' - ' + item.title + '<br /><span class="smallerfont">' + seen + '</span></li>')
 						.trigger('create');
 				}));
 				
@@ -511,7 +511,7 @@ var pwiTvShows = {
 				$("#episode-plot").after('<li>' + data.result.episodedetails.plot + '</li>');
 				
 				for(i = 0; i < data.result.episodedetails.cast.length; i++) {
-					img = data.result.episodedetails.cast[i].thumbnail ? '/vfs/' + data.result.episodedetails.cast[i].thumbnail : 'images/unknown-actor.gif';
+					img = data.result.episodedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.episodedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 					
 					$("#episode-cast").after('<li><img src="' + img + '" alt="Actor" />' + data.result.episodedetails.cast[i].name + '<br /><span class="smallfont">' + data.result.episodedetails.cast[i].role + '</span></li>');
 				}
@@ -632,7 +632,7 @@ var pwiMusic = {
 				$.each($(data.result.albums), jQuery.proxy(function(i, item) {
 					$("#albums-title").text(item.artist);
 					$('#albumlist')
-						.append('<li><a href="#music-artists-songs" data-music-album="' + item.albumid + '"><img src="/vfs/' + item.thumbnail + '" alt="Thumbnail" />' + item.title + '</li>')
+						.append('<li><a href="#music-artists-songs" data-music-album="' + item.albumid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thumbnail" />' + item.title + '</li>')
 						.trigger('create');
 				}));
 				
@@ -667,7 +667,7 @@ var pwiMusic = {
 					startsWith = item.artist.indexOf("The ") == 0 ? item.artist.substr(4, 1) : item.artist.indexOf("De ") == 0 ? item.artist.substr(3, 1) : item.artist.substr(0, 1);
 					
 					$('#songlist')
-						.append('<li><a href="javascript:pwiMusic.playSong();" data-music-song="' + item.songid + '"><img src="/vfs/' + item.thumbnail + '" alt="Thubnail" />' + item.title + '<br /><span class="smallfont">' + item.album + '</span></li>')
+						.append('<li><a href="javascript:pwiMusic.playSong();" data-music-song="' + item.songid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thubnail" />' + item.title + '<br /><span class="smallfont">' + item.album + '</span></li>')
 						.trigger('create');
 				}));
 				
