@@ -289,7 +289,7 @@ var pwiMovies = {
 			url: pwiCore.JSON_RPC + '?GetMovies',
 			data: '{"jsonrpc": "2.0", "method": "VideoLibrary.GetMovieDetails", "params": { "movieid": ' + id + ', "properties": [ "genre", "director", "cast", "tagline", "plot", "title", "lastplayed", "runtime", "year", "playcount", "rating", "thumbnail" ]}, "id": 1}',
 			success: jQuery.proxy(function(data) {
-				startsWith = data.result.moviedetails.title.indexOf("The ") == 0 ? data.result.moviedetails.title.substr(4, 1) : data.result.moviedetails.title.substr(0, 1);
+				//startsWith = data.result.moviedetails.title.indexOf("The ") == 0 ? data.result.moviedetails.title.substr(4, 1) : data.result.moviedetails.title.substr(0, 1);
 				
 				$('#movie-details').html('');
 				$('#movie-details').append('<li data-role="list-divider" id="movie-plot">Plot</li>');
@@ -658,16 +658,13 @@ var pwiMusic = {
 			type: 'POST',
 			contentType: 'application/json',
 			url: pwiCore.JSON_RPC + '?GetArtists',
-			data: '{"jsonrpc": "2.0", "method": "AudioLibrary.GetSongs", "params": { ' + lookup + ', "limits": { "start": 0}, "properties": ["artist", "title", "album", "duration", "thumbnail"], "sort": {"method": "title", "ignorearticle": true}}, "id": 1}',
+			data: '{"jsonrpc": "2.0", "method": "AudioLibrary.GetSongs", "params": { "limits": { "start": 0}, "properties": ["artist", "title", "album", "duration", "thumbnail"], "sort": {"method": "title", "ignorearticle": true}}, "filter": { ' + lookup + ' }, "id": 1}',
 			success: jQuery.proxy(function(data) {
 				$('#songlist').html("");
 				
 				$.each($(data.result.songs), jQuery.proxy(function(i, item) {
-					$("#songs-title").text(item.artist);
-					startsWith = item.artist.indexOf("The ") == 0 ? item.artist.substr(4, 1) : item.artist.indexOf("De ") == 0 ? item.artist.substr(3, 1) : item.artist.substr(0, 1);
-					
 					$('#songlist')
-						.append('<li><a href="javascript:pwiMusic.playSong();" data-music-song="' + item.songid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thubnail" />' + item.title + '<br /><span class="smallfont">' + item.album + '</span></li>')
+						.append('<li><a href="javascript:pwiMusic.playSong();" data-music-song="' + item.songid + '"><img src="/image/' + encodeURI(item.thumbnail) + '" alt="Thubnail" />' + item.title + '<br /><span class="smallfont">' + item.artist + '</span><br /><span class="smallfont">' + item.album + '</span></li>')
 						.trigger('create');
 				}));
 				
