@@ -623,7 +623,7 @@ var pwiMusic = {
 			type: 'POST',
 			contentType: 'application/json',
 			url: pwiCore.JSON_RPC + '?GetArtists',
-			data: '{ "jsonrpc": "2.0", "method": "AudioLibrary.GetAlbums", "params": { "artistid": ' + artistid + ', "limits": { "start": 0 }, "properties": [ "title", "artist", "thumbnail" ], "sort": { "method": "title", "ignorearticle": true } }, "id": 1 }',
+			data: '{ "jsonrpc": "2.0", "method": "AudioLibrary.GetAlbums", "params": { "limits": { "start": 0 }, "properties": [ "title", "artist", "thumbnail" ], "sort": { "method": "title", "ignorearticle": true } }, "filter": { "artistid": ' + artistid + ' }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
 				$('#albumlist').html("");
 
