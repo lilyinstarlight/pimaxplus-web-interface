@@ -94,7 +94,7 @@ var pwiCore = {
 
 					try {
 						$("#homelist").listview('refresh');
-					} catch(e) {}
+					} catch(ex) {}
 				});
 			}, this),
 		dataType: 'json'});
@@ -134,6 +134,8 @@ var pwiRemote = {
 		pwiRemote.isInitialized = true;
 	},
 	remotePressed: function(action, params) {
+		var data = '';
+
 		if(params == '') {
 			data = '{ "jsonrpc": "2.0", "method": "' + action + '", "id": 1 }';
 		} else if(params == 'player') {
@@ -199,11 +201,11 @@ var pwiMovies = {
 			url: pwiCore.JSON_RPC + '?GetMovies',
 			data: '{ "jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": { "limits": { "start": 0 }, "properties": [ "title" ], "sort": { "method": "sorttitle", "ignorearticle": true } }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
-				dividing = "-1";
+				var dividing = "-1";
 				$('#moviemainlist').html("");
 
 				$.each($(data.result.movies), jQuery.proxy(function(i, item) {
-					startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
+					var startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
 
 					if(64 < startsWith.charCodeAt(0) && startsWith.charCodeAt(0) < 91) {
 						if(startsWith != dividing) {
@@ -245,15 +247,14 @@ var pwiMovies = {
 			url: pwiCore.JSON_RPC + '?GetMovies',
 			data: '{ "jsonrpc": "2.0", "method": "VideoLibrary.GetMovies", "params": { "limits": { "start": 0 }, "properties": [ "thumbnail", "tagline", "title", "rating" ], "sort": { "method": "sorttitle", "ignorearticle": true } }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
-				dividing = "-1";
 				$('#movielist').html("");
 				$('#moviemainlist').html("");
 
 				$.each($(data.result.movies), jQuery.proxy(function(i, item) {
-					startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
-					stars = '';
+					var startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
+					var stars = '';
 
-					for(i = 0; i < 10; i = i + 2) {
+					for(var i = 0; i < 10; i = i + 2) {
 						if(i < Math.round(item.rating)) {
 							stars += '<img src="images/star.png" alt="Star" />';
 						} else {
@@ -304,8 +305,8 @@ var pwiMovies = {
 				$("#movie-plot").after('<li>' + data.result.moviedetails.plot + '</li>');
 				$("#movie-genres").after(pwiUtils.split(data.result.moviedetails.genre));
 
-				for(i = data.result.moviedetails.cast.length - 1; i >= 0 ; i--) {
-					img = data.result.moviedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.moviedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
+				for(var i = data.result.moviedetails.cast.length - 1; i >= 0 ; i--) {
+					var img = data.result.moviedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.moviedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 
 
 					$("#movie-cast").after('<li><img src="' + img + '" alt="Actor" />' + data.result.moviedetails.cast[i].name + '<br /><span class="smallfont">' + data.result.moviedetails.cast[i].role + '</span></li>');
@@ -314,7 +315,7 @@ var pwiMovies = {
 				$("#movie-crew").after(pwiUtils.split(data.result.moviedetails.director));
 				$("#movie-info").after('<li>Released in ' + data.result.moviedetails.year + '</li>');
 				$("#movie-info").after('<li>Duration: ' + data.result.moviedetails.runtime + ' minutes</li>');
-				$("#movie-actions").after('<li><a data-role="button" href="javascript:pwiMovies.playMovie();">Play movie</span></li>');
+				$("#movie-actions").after('<li><a data-role="button" href="javascript:pwiMovies.playMovie();">Play movie</a></li>');
 
 				$('#movie-details').listview('refresh');
 				$('[data-role=button]').button();
@@ -346,11 +347,11 @@ var pwiTvShows = {
 			url: pwiCore.JSON_RPC + '?GetTVShows',
 			data: '{ "jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": { "limits": { "start": 0 }, "properties": [ "title" ], "sort": { "method": "sorttitle", "ignorearticle": true } }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
-				dividing = "-1";
+				var dividing = "-1";
 				$('#tvshowmainlist').html("");
 
 				$.each($(data.result.tvshows), jQuery.proxy(function(i, item) {
-					startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
+					var startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
 
 					if(64 < startsWith.charCodeAt(0) && startsWith.charCodeAt(0) < 91) {
 						if(startsWith != dividing) {
@@ -392,14 +393,13 @@ var pwiTvShows = {
 			url: pwiCore.JSON_RPC + '?GetTVShows',
 			data: '{ "jsonrpc": "2.0", "method": "VideoLibrary.GetTVShows", "params": { "limits": { "start": 0 }, "properties": [ "thumbnail", "title", "rating" ], "sort": { "method": "sorttitle", "ignorearticle": true } }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
-				dividing = "-1";
 				$('#tvshowlist').html("");
 
 				$.each($(data.result.tvshows), jQuery.proxy(function(i, item) {
-					startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
+					var startsWith = item.title.indexOf("The ") == 0 ? item.title.substr(4, 1) : item.title.substr(0, 1);
 
 					var stars = '';
-					for(i = 0; i < 10; i = i + 2) {
+					for(var i = 0; i < 10; i = i + 2) {
 						if(i < Math.round(item.rating)) {
 							stars += '<img src="images/star.png" alt="Star" />';
 						} else {
@@ -442,7 +442,6 @@ var pwiTvShows = {
 
 				$.each($(data.result.seasons), jQuery.proxy(function(i, item) {
 					$("#tvshowseasons-title").text(item.showtitle);
-					//startsWith = item.showtitle.indexOf("The ") == 0 ? item.showtitle.substr(4, 1) : item.showtitle.substr(0, 1);
 
 					$('#tvshowseasonslist')
 						.append('<li><a href="#tvshows-episodes" data-tvshow-season="'+ item.season + '">' + item.label + '</li>')
@@ -474,7 +473,7 @@ var pwiTvShows = {
 
 				$.each($(data.result.episodes), jQuery.proxy(function(i, item) {
 					$("#tvshowepisodes-title").text('Season ' + season);
-					seen = item.playcount > 0 ? 'Watched' : '';
+					var seen = item.playcount > 0 ? 'Watched' : '';
 
 					$('#tvshowepisodeslist')
 						.append('<li><a href="#tvshows-episodes-details" data-tvshow-episode="' + item.episodeid + '"><img src="/image/' + encodeURI(item.thumbnail) +  '" alt="Thumnail" />' + item.episode + ' - ' + item.title + '<br /><span class="smallerfont">' + seen + '</span></li>')
@@ -511,8 +510,8 @@ var pwiTvShows = {
 				$("#episode-title").text(data.result.episodedetails.title);
 				$("#episode-plot").after('<li>' + data.result.episodedetails.plot + '</li>');
 
-				for(i = data.result.episodedetails.cast.length  - 1; i >= 0; i--) {
-					img = data.result.episodedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.episodedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
+				for(var i = data.result.episodedetails.cast.length  - 1; i >= 0; i--) {
+					var img = data.result.episodedetails.cast[i].thumbnail ? '/image/' + encodeURI(data.result.episodedetails.cast[i].thumbnail) : 'images/unknown-actor.gif';
 
 					$("#episode-cast").after('<li><img src="' + img + '" alt="Actor" />' + data.result.episodedetails.cast[i].name + '<br /><span class="smallfont">' + data.result.episodedetails.cast[i].role + '</span></li>');
 				}
@@ -520,7 +519,7 @@ var pwiTvShows = {
 				$("#episode-crew").after(pwiUtils.split(data.result.episodedetails.director));
 				$("#episode-info").after('<li>First aired on ' + data.result.episodedetails.firstaired + '</li>');
 				$("#episode-info").after('<li>Duration: ' + data.result.episodedetails.runtime + ' minutes</li>');
-				$("#episode-actions").after('<li><span data-role="button" onclick="pwiTvShows.playEpisode(' + episode + ');">Play episode</span></li>');
+				$("#episode-actions").after('<li><a data-role="button" onclick="pwiTvShows.playEpisode(' + episode + ');">Play episode</a></li>');
 
 				$('#episode-details').listview('refresh');
 				$('[data-role=button]').button();
@@ -547,11 +546,11 @@ var pwiMusic = {
 			url: pwiCore.JSON_RPC + '?GetArtists',
 			data: '{ "jsonrpc": "2.0", "method": "AudioLibrary.GetArtists", "params": { "limits": { "start": 0 }, "properties": [], "sort": { "method": "label", "ignorearticle": true } }, "id": 1 }',
 			success: jQuery.proxy(function(data) {
-				dividing = "-1";
+				var dividing = "-1";
 				$('#musicmainlist').html("");
 
 				$.each($(data.result.artists), jQuery.proxy(function(i, item) {
-					startsWith = item.label.indexOf("The ") == 0 ? item.label.substr(4, 1) : item.label.indexOf("De ") == 0 ? item.label.substr(3, 1) : item.label.substr(0, 1);
+					var startsWith = item.label.indexOf("The ") == 0 ? item.label.substr(4, 1) : item.label.indexOf("De ") == 0 ? item.label.substr(3, 1) : item.label.substr(0, 1);
 					startsWith = startsWith.toUpperCase();
 
 					if(64 < startsWith.charCodeAt(0) && startsWith.charCodeAt(0) < 91) {
@@ -598,7 +597,7 @@ var pwiMusic = {
 				$('#artistlist').html("");
 
 				$.each($(data.result.artists), jQuery.proxy(function(i, item) {
-					startsWith = item.label.indexOf("The ") == 0 ? item.label.substr(4, 1) : item.label.indexOf("De ") == 0 ? item.label.substr(3, 1) : item.label.substr(0, 1);
+					var startsWith = item.label.indexOf("The ") == 0 ? item.label.substr(4, 1) : item.label.indexOf("De ") == 0 ? item.label.substr(3, 1) : item.label.substr(0, 1);
 					startsWith = startsWith.toUpperCase();
 
 					if((s == '#' && (65 > startsWith.charCodeAt(0) || startsWith.charCodeAt(0) > 91)) || startsWith.toUpperCase() == s) {
@@ -697,7 +696,7 @@ var pwiUtils = {
 	split: function(text) {
 		var retval = "";
 
-		for(i = 0; i < text.length; i++) {
+		for(var i = 0; i < text.length; i++) {
 			retval += "<li>" + text[i] + "</li>";
 		}
 
