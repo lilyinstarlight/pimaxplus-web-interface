@@ -1,4 +1,4 @@
-v 0.1.5 (20130726)
+v 0.2.0 (20130726)
 - Added Frodo compatibility
 - Changed button from Hibernate to Suspend
 - Show artists on the songs
